@@ -39,7 +39,7 @@ namespace Microsoft.McpGateway.Management.Tests
             var result = await _service.CreateAsync(_accessContext, request, CancellationToken.None);
 
             result.Name.Should().Be("valid-name");
-            _deploymentManagerMock.Verify(x => x.CreateDeploymentAsync(It.IsAny<AdapterData>(), It.IsAny<CancellationToken>()), Times.Once);
+            _deploymentManagerMock.Verify(x => x.CreateDeploymentAsync(It.IsAny<AdapterData>(), ResourceType.Adapter, It.IsAny<CancellationToken>()), Times.Once);
             _storeMock.Verify(x => x.UpsertAsync(It.IsAny<AdapterResource>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
@@ -64,7 +64,7 @@ namespace Microsoft.McpGateway.Management.Tests
             var result = await _service.UpdateAsync(_accessContext, updatedRequest, CancellationToken.None);
 
             result.ImageName.Should().Be("new");
-            _deploymentManagerMock.Verify(x => x.UpdateDeploymentAsync(It.IsAny<AdapterResource>(), It.IsAny<CancellationToken>()), Times.Once);
+            _deploymentManagerMock.Verify(x => x.UpdateDeploymentAsync(It.IsAny<AdapterResource>(), ResourceType.Adapter, It.IsAny<CancellationToken>()), Times.Once);
             _storeMock.Verify(x => x.UpsertAsync(It.IsAny<AdapterResource>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 

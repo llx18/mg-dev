@@ -36,7 +36,7 @@ namespace Microsoft.McpGateway.Management.Tests
                 EnvironmentVariables = new Dictionary<string, string> { { "ENV", "value" } }
             };
 
-            await _manager.CreateDeploymentAsync(request, CancellationToken.None);
+            await _manager.CreateDeploymentAsync(request, ResourceType.Adapter, CancellationToken.None);
 
             _kubeClientMock.Verify(x => x.UpsertStatefulSetAsync(It.IsAny<V1StatefulSet>(), "adapter", It.IsAny<CancellationToken>()), Times.Once);
             _kubeClientMock.Verify(x => x.UpsertServiceAsync(It.IsAny<V1Service>(), "adapter", It.IsAny<CancellationToken>()), Times.Once);
@@ -62,7 +62,7 @@ namespace Microsoft.McpGateway.Management.Tests
 
             _kubeClientMock.Setup(x => x.ReadStatefulSetAsync("adapter1", "adapter", It.IsAny<CancellationToken>())).ReturnsAsync(statefulSet);
 
-            await _manager.UpdateDeploymentAsync(request, CancellationToken.None);
+            await _manager.UpdateDeploymentAsync(request, ResourceType.Adapter, CancellationToken.None);
 
             _kubeClientMock.Verify(x => x.PatchStatefulSetAsync(It.IsAny<V1Patch>(), "adapter1", "adapter", It.IsAny<CancellationToken>()), Times.Once);
         }

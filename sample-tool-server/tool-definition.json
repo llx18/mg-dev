@@ -1,0 +1,66 @@
+{
+  "name": "tool-server",
+  "version": "0.1.0",
+  "description": "Dummy Flask API providing echo and mock weather tools.",
+  "server": {
+    "baseUrl": "http://localhost:8080"
+  },
+  "tools": [
+    {
+      "name": "score",
+      "title": "Echo Text",
+      "description": "Echoes the provided text payload to help validate connectivity.",
+      "type": "http",
+      "properties": {
+        "method": "POST",
+        "path": "/score"
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Arbitrary text content to echo back."
+          }
+        },
+        "required": ["text"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The same text value returned from the server."
+          }
+        },
+        "required": ["text"]
+      }
+    },
+    {
+      "name": "weather",
+      "title": "Weather Information",
+      "description": "Gets the current weather for a specified location.",
+      "type": "http",
+      "properties": {
+        "method": "POST",
+        "path": "/score"
+      },
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The city and state, e.g. San Francisco, CA"
+          },
+          "unit": {
+            "type": "string",
+            "description": "The unit of temperature",
+            "enum": ["celsius", "fahrenheit"],
+            "default": "fahrenheit"
+          }
+        },
+        "required": ["location"]
+      }
+    }
+  ]
+}
